@@ -17,4 +17,22 @@ snippet se
 snippet ce
 	CHECK_EQUAL(${1:expected}, ${2:actual});
 
+snippet exp
+	mock().expectOneCall("${1}")${0}
+
+snippet igc
+	mock().ignoreOtherCalls();
+
+snippet igp
+	ignoreOtherParameters()
+
+snippet wp
+	withParameter("${1}", ${2})
+
+snippet wopr
+	withOutputParameterReturning("${1}", ${2:NULL}, ${3:0})
+
+snippet rmd
+	return mock().return${1:UnsignedInt}ValueOrDefault(${2:0});
+
 # vim: foldmethod=marker foldlevel=1
