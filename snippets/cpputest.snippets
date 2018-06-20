@@ -1,0 +1,20 @@
+# CppUTest test file snippets
+# Depends on &filetype being set to e.g. "cpp.cpputest"
+
+snippet tg
+	TEST_GROUP(${1}) {${0}};
+
+snippet te
+	TEST(`snipsnip#cpputest#find_test_group()`, ${1}) {
+		${0}
+	}
+
+snippet se
+	void setup(void) {
+		${0}
+	}
+
+snippet ce
+	CHECK_EQUAL(${1:expected}, ${2:actual});
+
+# vim: foldmethod=marker foldlevel=1
