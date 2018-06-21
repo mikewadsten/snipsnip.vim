@@ -9,13 +9,15 @@ snippet te
 		${0}
 	}
 
-snippet se
+snippet su
 	void setup(void) {
 		${0}
 	}
 
-snippet ce
-	CHECK_EQUAL(${1:expected}, ${2:actual});
+snippet td
+	void teardown(void) {
+		${0}
+	}
 
 snippet exp
 	mock().expectOneCall("${1}")${0}
@@ -32,7 +34,16 @@ snippet wp
 snippet wopr
 	withOutputParameterReturning("${1}", ${2:NULL}, ${3:0})
 
+snippet wmb
+	withMemoryBufferParameter("${1}", ${2:ptr}, ${3:size})
+
 snippet rmd
 	return mock().return${1:UnsignedInt}ValueOrDefault(${2:0});
+
+snippet ch
+	CHECK(${1:condition});
+
+snippet ce
+	CHECK_EQUAL(${1:expected}, ${2:actual});
 
 # vim: foldmethod=marker foldlevel=1
