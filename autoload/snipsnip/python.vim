@@ -1,17 +1,27 @@
 function! snipsnip#python#make_dunder_all_list()
-  " Scan downward in the file for any top-level `def` or `class` declarations.
+  " Scan downward in the file for any top-level `def` or `class` declarations,
+  " or top-level variable declarations such as `THING = 1`.
   " Return a string containing a tuple of the names associated with the
   " decls that are found.
   " This string is suitable for use as the __all__ variable.
-  " TODO: Pick up top-level variables?
 
   let decls = []
   let startpos = getpos('.')
   while v:true
-    let match_lineno = search('\v^(class .*[(:]|def .*\()', 'W')
+    let match_lineno = search('\v^(class .*[(:]|def .*\(|\S+\s*\=)', 'W')
     if match_lineno > 0
-      let decl = substitute(getline('.'), '\v(class|def)\s+(.{-})[(:].*', '\2', '')
+      let matchline = getline('.')
+      if match(matchline, '\v^\S+\s*\=') != -1
+        " Looks like a variable.
+        let decl = substitute(matchline, '\v^(\S+)\s*\=.*', '\1', '')
+      else
+        " class or def.
+        let decl = substitute(getline('.'), '\v(class|def)\s+(.{-})[(:].*', '\2', '')
+      endif
+
       if strlen(decl) > 0 && decl[0] != '_'
+        " Only record this declaration if it's not underscore-prefixed
+        " (private).
         call add(decls, decl)
       endif
     else
