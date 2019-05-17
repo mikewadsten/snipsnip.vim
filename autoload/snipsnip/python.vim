@@ -13,7 +13,12 @@ function! snipsnip#python#make_dunder_all_list()
       let matchline = getline('.')
       if match(matchline, '\v^\S+\s*\=') != -1
         " Looks like a variable.
-        let decl = substitute(matchline, '\v^(\S+)\s*\=.*', '\1', '')
+        if match(matchline, '^\s*@') == -1
+          " Doesn't look like a decorator.
+          let decl = substitute(matchline, '\v^(\S+)\s*\=.*', '\1', '')
+        else
+          let decl = ''
+        endif
       else
         " class or def.
         let decl = substitute(getline('.'), '\v(class|def)\s+(.{-})[(:].*', '\2', '')
