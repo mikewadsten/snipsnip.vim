@@ -35,5 +35,5 @@ function! snipsnip#python#make_dunder_all_list()
   endwhile
   call setpos('.', startpos)
 
-  return "('" . join(decls, "', '") . "')"
+  return "('" . join(decls, "', '") . "', )"
 endfunction
