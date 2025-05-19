@@ -8,7 +8,7 @@ function! snipsnip#python#make_dunder_all_list()
   let decls = []
   let startpos = getpos('.')
   while v:true
-    let match_lineno = search('\v^(class .*[(:]|def .*\(|\S+\s*\=)', 'W')
+    let match_lineno = search('\v^(class .*[(:]|(async )?def .*\(|\S+\s*\=)', 'W')
     if match_lineno > 0
       let matchline = getline('.')
       if match(matchline, '\v^\S+\s*\=') != -1
@@ -21,7 +21,7 @@ function! snipsnip#python#make_dunder_all_list()
         endif
       else
         " class or def.
-        let decl = substitute(getline('.'), '\v(class|def)\s+(.{-})[(:].*', '\2', '')
+        let decl = substitute(getline('.'), '\v(class|def|async def)\s+(.{-})[(:].*', '\2', '')
       endif
 
       if strlen(decl) > 0 && decl[0] != '_'
